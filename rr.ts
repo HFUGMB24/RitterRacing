@@ -7,6 +7,7 @@ class Player {
     friction: number = 0.9; // Friction factor to simulate momentum
 
     constructor(
+        public velocityY: number,
         public x: number,
         public y: number,
         public width: number,
@@ -14,8 +15,11 @@ class Player {
         public color: string,
         public speed: number,
         public dx: number = 0,
-        public dy: number = 0
-    ) {}
+        public dy: number = 0,
+        ) { this.x = x;
+            this.y = y;
+            this.velocityY = 0; 
+    }
 
     draw() {
         ctx.fillStyle = this.color;
@@ -40,11 +44,17 @@ class Player {
         this.dx += ax;
         this.dy += ay;
     }
+
+    applyGravity() {
+        const gravity = 0.5; // Adjust as needed
+        this.velocityY += gravity; // Update vertical velocity
+        this.y += this.velocityY; // Update character position
+    }
 }
 
 // Create two player objects
-const player1 = new Player(50, 50, 50, 50, 'blue', 5);
-const player2 = new Player(200, 50, 50, 50, 'red', 5);
+const player1 = new Player(0,50, 50, 50, 50, 'blue', 5,);
+const player2 = new Player(0,200, 50, 50, 50, 'red', 5,);
 
 // Key handling
 const keys: { [key: string]: boolean } = {
@@ -92,6 +102,8 @@ function update() {
     updatePlayers();
     player1.update();
     player2.update();
+    player1.applyGravity();
+    player2.applyGravity();
 }
 
 function draw() {
