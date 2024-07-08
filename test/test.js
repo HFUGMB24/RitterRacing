@@ -1,33 +1,33 @@
 "use strict";
 // Get the canvas element and context
-const canvas = document.getElementById('gameCanvas');
-const ctx = canvas.getContext('2d');
+let canvas = document.querySelector("canvas");
+let ctx = canvas.getContext('2d');
 // Define the player class
 class Player {
-    constructor(velocityY, x, y, width, height, color, speed, dx = 0, dy = 0) {
-        this.velocityY = velocityY;
+    constructor(GravitationalVelocity = 0, x, y, width, height, color, 
+    //public speed: number,
+    dirX = 0, dirY = 0) {
+        this.GravitationalVelocity = GravitationalVelocity;
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
         this.color = color;
-        this.speed = speed;
-        this.dx = dx;
-        this.dy = dy;
+        this.dirX = dirX;
+        this.dirY = dirY;
         this.friction = 0.9; // Friction factor to simulate momentum
-        this.x = x;
-        this.y = y;
-        this.velocityY = 0;
+        //this.y = y;
+        //this.velocityY = 0; 
     }
     draw() {
         ctx.fillStyle = this.color;
         ctx.fillRect(this.x, this.y, this.width, this.height);
     }
     update() {
-        this.dx *= this.friction;
-        this.dy *= this.friction;
-        this.x += this.dx;
-        this.y += this.dy;
+        this.dirX *= this.friction;
+        this.dirY *= this.friction;
+        this.x += this.dirX;
+        this.y += this.dirY;
         // Prevent the player from going out of bounds
         if (this.x < 0)
             this.x = 0;
@@ -38,36 +38,49 @@ class Player {
         if (this.y + this.height > canvas.height)
             this.y = canvas.height - this.height;
     }
-    accelerate(ax, ay) {
-        this.dx += ax;
-        this.dy += ay;
+    accelerate(accX, accY) {
+        this.dirX += accX;
+        this.dirY += accY;
     }
     applyGravity() {
-        const gravity = 0.5; // Adjust as needed
-        this.velocityY += gravity; // Update vertical velocity
-        this.y += this.velocityY; // Update character position
+        if (this.y == canvas.height - this.height) {
+            this.y = canvas.height - this.height;
+            return;
+        } // if (floor) {leave function}
+        const gravity = 0.1; // Adjust as needed
+        this.GravitationalVelocity += gravity; // Update vertical velocity
+        this.y += this.GravitationalVelocity; // Update character position
     }
 }
 // Create two player objects
-const player1 = new Player(0, 50, 50, 50, 50, 'blue', 5);
-const player2 = new Player(0, 200, 50, 50, 50, 'red', 5);
+const player1 = new Player(0, 50, 50, 50, 50, "blue");
+const player2 = new Player(0, 200, 50, 50, 50, "red");
 // Key handling
 const keys = {
     ArrowLeft: false,
     ArrowRight: false,
     ArrowUp: false,
-    ArrowDown: false,
     a: false,
     d: false,
     w: false,
-    s: false
 };
+function KeyDown(_event) {
+    keys[_event.key] = true;
+}
+window.addEventListener("keydown", KeyDown);
+function KeyUp(_event) {
+    keys[_event.key] = false;
+}
+window.addEventListener("keyup", KeyUp);
+/*
 window.addEventListener('keydown', (e) => {
     keys[e.key] = true;
 });
+
 window.addEventListener('keyup', (e) => {
     keys[e.key] = false;
 });
+*/
 function updatePlayers() {
     // Acceleration factor
     const acceleration = 0.5;
@@ -78,8 +91,6 @@ function updatePlayers() {
         player1.accelerate(acceleration, 0);
     if (keys['w'])
         player1.accelerate(0, -acceleration);
-    if (keys['s'])
-        player1.accelerate(0, acceleration);
     // Update player 2 (Arrow Keys)
     if (keys['ArrowLeft'])
         player2.accelerate(-acceleration, 0);
@@ -87,8 +98,6 @@ function updatePlayers() {
         player2.accelerate(acceleration, 0);
     if (keys['ArrowUp'])
         player2.accelerate(0, -acceleration);
-    if (keys['ArrowDown'])
-        player2.accelerate(0, acceleration);
 }
 // Game loop
 function clear() {
