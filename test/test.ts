@@ -18,14 +18,58 @@ function createPlatforms() {
 
     let floor: Platform = {
         posX: 0,
-        posY: 500,
+        posY: 675,
         width: canvas.width,
         height: 10,
-        color: "black",
+        color: "#00000000",
         path: new Path2D,
     }
     Platforms.push(floor);
     PlatformArray.push(floor);
+
+    let RedBorderLeft: Platform = {
+        posX: 300,
+        posY: 0,
+        width: 50,
+        height: canvas.height,
+        color: "#00000000",
+        path: new Path2D,
+    }
+    Platforms.push(RedBorderLeft);
+    PlatformArray.push(RedBorderLeft);
+
+    let RedBorderRight: Platform = {
+        posX: 700,
+        posY: 0,
+        width: 50,
+        height: canvas.height,
+        color: "#00000000",
+        path: new Path2D,
+    }
+    Platforms.push(RedBorderRight);
+    PlatformArray.push(RedBorderRight);
+
+    let BlueBorderLeft: Platform = {
+        posX: 790,
+        posY: 0,
+        width: 50,
+        height: canvas.height,
+        color: "#00000000",
+        path: new Path2D,
+    }
+    Platforms.push(BlueBorderLeft);
+    PlatformArray.push(BlueBorderLeft);
+
+    let BlueBorderRight: Platform = {
+        posX: 1188,
+        posY: 0,
+        width: 50,
+        height: canvas.height,
+        color: "#00000000",
+        path: new Path2D,
+    }
+    Platforms.push(BlueBorderRight);
+    PlatformArray.push(BlueBorderRight);
 
     let Platform1: Platform = {
         posX: 300,
@@ -67,7 +111,6 @@ class Player {
     friction: number = 0.9; // Friction factor to simulate momentum
     
     constructor(
-        public GravitationalVelocity: number = 0,
         public x: number,
         public y: number,
         public width: number,
@@ -76,6 +119,7 @@ class Player {
         //public speed: number,
         public dirX: number = 0,
         public dirY: number = 0,
+        public GravitationalVelocity: number = 0,
         )   { //this.x = x;
             //this.y = y;
             //this.velocityY = 0; 
@@ -180,8 +224,8 @@ class Player {
 }
 
 // Create two player objects
-const player1 = new Player(0, 50, 50, 50, 50, "blue");
-const player2 = new Player(0, 200, 50, 50, 50, "red");
+const player1 = new Player(50, 50, 50, 50, "blue");
+const player2 = new Player(200, 50, 50, 50, "red");
 
 // Key handling
 const keys: { [key: string]: boolean } = {

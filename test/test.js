@@ -7,14 +7,54 @@ function createPlatforms() {
     let Platforms = [];
     let floor = {
         posX: 0,
-        posY: 500,
+        posY: 675,
         width: canvas.width,
         height: 10,
-        color: "black",
+        color: "#00000000",
         path: new Path2D,
     };
     Platforms.push(floor);
     PlatformArray.push(floor);
+    let RedBorderLeft = {
+        posX: 300,
+        posY: 0,
+        width: 50,
+        height: canvas.height,
+        color: "#00000000",
+        path: new Path2D,
+    };
+    Platforms.push(RedBorderLeft);
+    PlatformArray.push(RedBorderLeft);
+    let RedBorderRight = {
+        posX: 700,
+        posY: 0,
+        width: 50,
+        height: canvas.height,
+        color: "#00000000",
+        path: new Path2D,
+    };
+    Platforms.push(RedBorderRight);
+    PlatformArray.push(RedBorderRight);
+    let BlueBorderLeft = {
+        posX: 790,
+        posY: 0,
+        width: 50,
+        height: canvas.height,
+        color: "#00000000",
+        path: new Path2D,
+    };
+    Platforms.push(BlueBorderLeft);
+    PlatformArray.push(BlueBorderLeft);
+    let BlueBorderRight = {
+        posX: 1188,
+        posY: 0,
+        width: 50,
+        height: canvas.height,
+        color: "#00000000",
+        path: new Path2D,
+    };
+    Platforms.push(BlueBorderRight);
+    PlatformArray.push(BlueBorderRight);
     let Platform1 = {
         posX: 300,
         posY: 420,
@@ -47,10 +87,9 @@ function drawPlatforms(_platform) {
 }
 // Define the player class
 class Player {
-    constructor(GravitationalVelocity = 0, x, y, width, height, color, 
+    constructor(x, y, width, height, color, 
     //public speed: number,
-    dirX = 0, dirY = 0) {
-        this.GravitationalVelocity = GravitationalVelocity;
+    dirX = 0, dirY = 0, GravitationalVelocity = 0) {
         this.x = x;
         this.y = y;
         this.width = width;
@@ -58,6 +97,7 @@ class Player {
         this.color = color;
         this.dirX = dirX;
         this.dirY = dirY;
+        this.GravitationalVelocity = GravitationalVelocity;
         this.friction = 0.9; // Friction factor to simulate momentum
         this.touchGrass = false;
         //this.y = y;
@@ -159,8 +199,8 @@ class Player {
     }
 }
 // Create two player objects
-const player1 = new Player(0, 50, 50, 50, 50, "blue");
-const player2 = new Player(0, 200, 50, 50, 50, "red");
+const player1 = new Player(50, 50, 50, 50, "blue");
+const player2 = new Player(200, 50, 50, 50, "red");
 // Key handling
 const keys = {
     ArrowLeft: false,
