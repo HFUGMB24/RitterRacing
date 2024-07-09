@@ -3,8 +3,6 @@ let crc2: CanvasRenderingContext2D = canvas.getContext("2d")!;
 
 interface Platform {
     path: Path2D,
-    baum: 0,
-    
 }
 
 let PlatformArray: Platform[] = [];
