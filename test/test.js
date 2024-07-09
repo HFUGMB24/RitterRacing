@@ -5,9 +5,19 @@ let ctx = canvas.getContext('2d');
 let PlatformArray = [];
 function createPlatforms() {
     let Platforms = [];
+    let floor = {
+        posX: 0,
+        posY: 500,
+        width: canvas.width,
+        height: 10,
+        color: "black",
+        path: new Path2D,
+    };
+    Platforms.push(floor);
+    PlatformArray.push(floor);
     let Platform1 = {
-        posX: 200,
-        posY: 200,
+        posX: 300,
+        posY: 420,
         width: 50,
         height: 10,
         color: "black",
@@ -15,6 +25,16 @@ function createPlatforms() {
     };
     Platforms.push(Platform1);
     PlatformArray.push(Platform1);
+    let Platform2 = {
+        posX: 70,
+        posY: 200,
+        width: 50,
+        height: 10,
+        color: "black",
+        path: new Path2D,
+    };
+    Platforms.push(Platform2);
+    PlatformArray.push(Platform2);
     return Platforms;
 }
 function drawPlatforms(_platform) {
@@ -39,14 +59,6 @@ class Player {
         this.dirX = dirX;
         this.dirY = dirY;
         this.friction = 0.9; // Friction factor to simulate momentum
-        this.CharTopLeftX = this.x;
-        this.CharTopLeftY = this.y;
-        this.CharTopRightX = this.x + this.width;
-        this.CharTopRightY = this.y;
-        this.CharBottomLeftX = this.x;
-        this.CharBottomLeftY = this.y + this.height;
-        this.CharBottomRightX = this.x + this.width;
-        this.CharBottomRightY = this.y + this.height;
         this.touchGrass = false;
         //this.y = y;
         //this.velocityY = 0; 
@@ -55,6 +67,14 @@ class Player {
         ctx.fillStyle = this.color;
         ctx.fillRect(this.x, this.y, this.width, this.height);
     }
+    /*CharTopLeftX: number = this.x;
+    CharTopLeftY: number = this.y;
+    CharTopRightX: number = this.x + this.width;
+    CharTopRightY: number = this.y;
+    CharBottomLeftX: number = this.x;
+    CharBottomLeftY: number = this.y + this.height;
+    CharBottomRightX: number = this.x + this.width;
+    CharBottomRightY: number = this.y + this.height;*/
     update() {
         this.dirX *= this.friction;
         this.dirY *= this.friction;
@@ -73,36 +93,55 @@ class Player {
         if (this.y + this.height > canvas.height) {
             this.y = canvas.height - this.height;
         }
-        for (let i = 0; i < PlatformArray.length; i++) {
+        /*this.CharTopLeftX = this.x;
+        this.CharTopLeftY = this.y;
+        this.CharTopRightX = this.x + this.width;
+        this.CharTopRightY = this.y;
+        this.CharBottomLeftX = this.x;
+        this.CharBottomLeftY = this.y + this.height;
+        this.CharBottomRightX = this.x + this.width;
+        this.CharBottomRightY = this.y + this.height;
+
+        for (let i:number = 0; i < PlatformArray.length; i++) {
             if (ctx.isPointInPath(PlatformArray[i].path, this.CharTopLeftX, this.CharTopLeftY) == true) {
                 this.touchGrass = true;
-            }
-            else {
-                this.touchGrass = false;
-            }
+            } else {this.touchGrass = false;}
         }
-        for (let i = 0; i < PlatformArray.length; i++) {
+    
+        for (let i:number = 0; i < PlatformArray.length; i++) {
             if (ctx.isPointInPath(PlatformArray[i].path, this.CharTopRightX, this.CharTopRightY) == true) {
                 this.touchGrass = true;
-            }
-            else {
-                this.touchGrass = false;
-            }
+            } else {this.touchGrass = false;}
         }
-        for (let i = 0; i < PlatformArray.length; i++) {
+    
+        for (let i:number = 0; i < PlatformArray.length; i++) {
             if (ctx.isPointInPath(PlatformArray[i].path, this.CharBottomLeftX, this.CharBottomLeftY) == true) {
                 this.touchGrass = true;
-            }
-            else {
-                this.touchGrass = false;
-            }
+            } else {this.touchGrass = false;}
         }
-        for (let i = 0; i < PlatformArray.length; i++) {
+    
+        for (let i:number = 0; i < PlatformArray.length; i++) {
             if (ctx.isPointInPath(PlatformArray[i].path, this.CharBottomRightX, this.CharBottomRightY) == true) {
                 this.touchGrass = true;
-            }
-            else {
-                this.touchGrass = false;
+            } else {this.touchGrass = false;}
+        }*/
+        this.checkPlatformCollision();
+    }
+    checkPlatformCollision() {
+        this.touchGrass = false;
+        let points = [
+            { x: this.x, y: this.y }, // Top-left
+            { x: this.x + this.width, y: this.y }, // Top-right
+            { x: this.x, y: this.y + this.height }, // Bottom-left
+            { x: this.x + this.width, y: this.y + this.height } // Bottom-right
+        ];
+        for (let platform of PlatformArray) {
+            for (let point of points) {
+                if (ctx.isPointInPath(platform.path, point.x, point.y)) {
+                    this.touchGrass = true;
+                    this.GravitationalVelocity = 0; // Reset gravitational velocity
+                    //break;
+                }
             }
         }
     }
@@ -111,7 +150,7 @@ class Player {
         this.dirY += accY;
     }
     applyGravity() {
-        if (this.y == canvas.height - this.height) {
+        if (this.touchGrass == true) {
             return;
         } // if (floor) {leave function}
         const gravity = 0.1; // Adjust as needed
@@ -164,11 +203,14 @@ function updatePlayers() {
     if (keys['ArrowRight'])
         player2.accelerate(acceleration, 0);
     if (keys['ArrowUp'])
-        player2.accelerate(0, -acceleration * 15);
+        player2.accelerate(0, -acceleration);
 }
 // Game loop
+drawPlatforms(createPlatforms());
+let imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
 function clear() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.putImageData(imgData, 0, 0);
 }
 function update() {
     updatePlayers();
@@ -182,7 +224,6 @@ function draw() {
     player2.draw();
 }
 function gameLoop() {
-    drawPlatforms(createPlatforms());
     clear();
     update();
     draw();
