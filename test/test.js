@@ -99,15 +99,17 @@ class Player {
         this.dirY = dirY;
         this.GravitationalVelocity = GravitationalVelocity;
         this.friction = 0.9; // Friction factor to simulate momentum
-        this.CharTopLeftX = this.x;
-        this.CharTopLeftY = this.y;
-        this.CharTopRightX = this.x + this.width;
-        this.CharTopRightY = this.y;
-        this.CharBottomLeftX = this.x;
-        this.CharBottomLeftY = this.y + this.height;
-        this.CharBottomRightX = this.x + this.width;
-        this.CharBottomRightY = this.y + this.height;
+        /*CharTopLeftX: number = this.x;
+        CharTopLeftY: number = this.y;
+        CharTopRightX: number = this.x + this.width;
+        CharTopRightY: number = this.y;
+        CharBottomLeftX: number = this.x;
+        CharBottomLeftY: number = this.y + this.height;
+        CharBottomRightX: number = this.x + this.width;
+        CharBottomRightY: number = this.y + this.height;*/
         this.touchGrass = false;
+        this.touchLeftWall = false;
+        this.touchRightWall = false;
         //this.y = y;
         //this.velocityY = 0; 
     }
@@ -169,6 +171,8 @@ class Player {
     }
     checkPlatformCollision() {
         this.touchGrass = false;
+        this.touchLeftWall = false;
+        this.touchRightWall = false;
         let FeetCollisionPoints = [
             { x: this.x + this.width * 0.1, y: this.y + this.height * 0.8 }, // Top-left
             { x: this.x + this.width * 0.9, y: this.y + this.height * 0.8 }, // Top-right
@@ -186,19 +190,33 @@ class Player {
                 }
             }
         }
-        let BodyCollisionPoints = [
+        let LeftCollisionPoints = [
             { x: this.x, y: this.y }, // Top-left
-            { x: this.x + this.width, y: this.y }, // Top-right
-            { x: this.x, y: this.y * 0.9 + this.height }, // Bottom-left
-            { x: this.x + this.width, y: this.y * 0.9 + this.height } // Bottom-right
+            //{ x: this.x + this.width, y: this.y }, // Top-right
+            { x: this.x, y: this.y + this.height * 0.5 }, // Bottom-left
+            //{ x: this.x + this.width, y: this.y + this.height * 0.5} // Bottom-right
         ];
         for (let platform of PlatformArray) {
-            for (let point of BodyCollisionPoints) {
+            for (let point of LeftCollisionPoints) {
                 if (ctx.isPointInPath(platform.path, point.x, point.y)) {
-                    this.accelerate(0, 0);
-                    this.dirX = 0;
-                    this.dirY = 0;
-                    console.log("bonk");
+                    //this.dirX = 0;
+                    //this.dirY = 0;
+                    this.touchLeftWall = true;
+                }
+            }
+        }
+        let RightCollisionPoints = [
+            //{ x: this.x, y: this.y }, // Top-left
+            { x: this.x + this.width, y: this.y }, // Top-right
+            //{ x: this.x, y: this.y + this.height * 0.5}, // Bottom-left
+            { x: this.x + this.width, y: this.y + this.height * 0.5 } // Bottom-right
+        ];
+        for (let platform of PlatformArray) {
+            for (let point of RightCollisionPoints) {
+                if (ctx.isPointInPath(platform.path, point.x, point.y)) {
+                    //this.dirX = 0;
+                    //this.dirY = 0;
+                    this.touchRightWall = true;
                 }
             }
         }
@@ -237,8 +255,16 @@ class Player {
         }
     }*/
     accelerate(accX, accY) {
-        this.dirX += accX;
-        this.dirY += accY;
+        if (this.touchLeftWall) {
+            this.dirX = this.dirX + 1;
+        }
+        else if (this.touchRightWall) {
+            this.dirX = this.dirX - 1;
+        }
+        else {
+            this.dirX += accX;
+            this.dirY += accY;
+        }
     }
     applyGravity() {
         if (this.touchGrass == true) {
@@ -263,8 +289,8 @@ class goal {
     }
 }
 //goal objects
-const Goal1 = new goal(400, 600, 50, 50);
-const Goal2 = new goal(1200, 600, 100, 100);
+const Goal1 = new goal(400, 500, 50, 50);
+const Goal2 = new goal(1100, 500, 50, 50);
 // Create two player objects
 const player1 = new Player(460, 620, 30, 30, "red");
 const player2 = new Player(1410, 620, 30, 30, "blue");
@@ -361,9 +387,11 @@ function gameLoop() {
     draw();
     if (checkGoal(player1, Goal1)) {
         displayMessage("Player 1 Win!");
+        return;
     }
     else if (checkGoal(player2, Goal2)) {
         displayMessage("Player 2 Win!");
+        return;
     }
     requestAnimationFrame(gameLoop);
 }
