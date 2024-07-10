@@ -21,7 +21,7 @@ function createPlatforms() {
         posY: 675,
         width: canvas.width,
         height: 50,
-        color: "black",
+        color: "#00000000",
         path: new Path2D,
     }
     Platforms.push(floor);
@@ -32,7 +32,7 @@ function createPlatforms() {
         posY: 0,
         width: 50,
         height: canvas.height,
-        color: "black",
+        color: "#00000000",
         path: new Path2D,
     }
     Platforms.push(RedBorderLeft);
@@ -43,7 +43,7 @@ function createPlatforms() {
         posY: 0,
         width: 50,
         height: canvas.height,
-        color: "black",
+        color: "#00000000",
         path: new Path2D,
     }
     Platforms.push(RedBorderRight);
@@ -54,7 +54,7 @@ function createPlatforms() {
         posY: 0,
         width: 50,
         height: canvas.height,
-        color: "black",
+        color: "#00000000",
         path: new Path2D,
     }
     Platforms.push(BlueBorderLeft);
@@ -65,7 +65,7 @@ function createPlatforms() {
         posY: 0,
         width: 50,
         height: canvas.height,
-        color: "black",
+        color: "#00000000",
         path: new Path2D,
     }
     Platforms.push(BlueBorderRight);
@@ -76,7 +76,7 @@ function createPlatforms() {
         posY: 560,
         width: 75,
         height: 10,
-        color: "black",
+        color: "dimgrey",
         path: new Path2D,
     }
     Platforms.push(PlatformB1);
@@ -87,7 +87,7 @@ function createPlatforms() {
         posY: 600,
         width: 150,
         height: 10,
-        color: "black",
+        color: "dimgrey",
         path: new Path2D,
     }
     Platforms.push(PlatformB2);
@@ -98,7 +98,7 @@ function createPlatforms() {
         posY: 500,
         width: 250,
         height: 10,
-        color: "black",
+        color: "dimgrey",
         path: new Path2D,
     }
     Platforms.push(PlatformB3);
@@ -109,7 +109,7 @@ function createPlatforms() {
         posY: 440,
         width: 300,
         height: 10,
-        color: "black",
+        color: "dimgrey",
         path: new Path2D,
     }
     Platforms.push(PlatformB4);
@@ -120,7 +120,7 @@ function createPlatforms() {
         posY: 350,
         width: 50,
         height: 100,
-        color: "black",
+        color: "dimgrey",
         path: new Path2D,
     }
     Platforms.push(PlatformB5);
@@ -131,7 +131,7 @@ function createPlatforms() {
         posY: 400,
         width: 50,
         height: 50,
-        color: "black",
+        color: "dimgrey",
         path: new Path2D,
     }
     Platforms.push(PlatformB6);
@@ -142,7 +142,7 @@ function createPlatforms() {
         posY: 350,
         width: 225,
         height: 10,
-        color: "black",
+        color: "dimgrey",
         path: new Path2D,
     }
     Platforms.push(PlatformB7);
@@ -153,7 +153,7 @@ function createPlatforms() {
         posY: 300,
         width: 50,
         height: 10,
-        color: "black",
+        color: "dimgrey",
         path: new Path2D,
     }
     Platforms.push(PlatformB8);
@@ -164,7 +164,7 @@ function createPlatforms() {
         posY: 300,
         width: 50,
         height: 10,
-        color: "black",
+        color: "dimgrey",
         path: new Path2D,
     }
     Platforms.push(PlatformB9);
@@ -175,7 +175,7 @@ function createPlatforms() {
         posY: 240,
         width: 50,
         height: 10,
-        color: "black",
+        color: "dimgrey",
         path: new Path2D,
     }
     Platforms.push(PlatformB10);
@@ -186,7 +186,7 @@ function createPlatforms() {
         posY: 200,
         width: 50,
         height: 10,
-        color: "black",
+        color: "dimgrey",
         path: new Path2D,
     }
     Platforms.push(PlatformB11);
@@ -197,7 +197,7 @@ function createPlatforms() {
         posY: 170,
         width: 275,
         height: 10,
-        color: "black",
+        color: "dimgrey",
         path: new Path2D,
     }
     Platforms.push(PlatformB12);
@@ -208,7 +208,7 @@ function createPlatforms() {
         posY: 120,
         width: 150,
         height: 10,
-        color: "black",
+        color: "dimgrey",
         path: new Path2D,
     }
     Platforms.push(PlatformB13);
@@ -219,7 +219,7 @@ function createPlatforms() {
         posY: 560,
         width: 75,
         height: 10,
-        color: "black",
+        color: "dimgrey",
         path: new Path2D,
     }
     Platforms.push(PlatformR1);
@@ -230,7 +230,7 @@ function createPlatforms() {
         posY: 600,
         width: 150,
         height: 10,
-        color: "black",
+        color: "dimgrey",
         path: new Path2D,
     }
     Platforms.push(PlatformR2);
@@ -241,7 +241,7 @@ function createPlatforms() {
         posY: 500,
         width: 250,
         height: 10,
-        color: "black",
+        color: "dimgrey",
         path: new Path2D,
     }
     Platforms.push(PlatformR3);
@@ -252,7 +252,7 @@ function createPlatforms() {
         posY: 440,
         width: 300,
         height: 10,
-        color: "black",
+        color: "dimgrey",
         path: new Path2D,
     }
     Platforms.push(PlatformR4);
@@ -263,7 +263,7 @@ function createPlatforms() {
         posY: 350,
         width: 50,
         height: 100,
-        color: "black",
+        color: "dimgrey",
         path: new Path2D,
     }
     Platforms.push(PlatformR5);
@@ -274,7 +274,7 @@ function createPlatforms() {
         posY: 400,
         width: 50,
         height: 50,
-        color: "black",
+        color: "dimgrey",
         path: new Path2D,
     }
     Platforms.push(PlatformR6);
@@ -285,7 +285,7 @@ function createPlatforms() {
         posY: 350,
         width: 225,
         height: 10,
-        color: "black",
+        color: "dimgrey",
         path: new Path2D,
     }
     Platforms.push(PlatformR7);
@@ -296,7 +296,7 @@ function createPlatforms() {
         posY: 300,
         width: 50,
         height: 10,
-        color: "black",
+        color: "dimgrey",
         path: new Path2D,
     }
     Platforms.push(PlatformR8);
@@ -307,7 +307,7 @@ function createPlatforms() {
         posY: 300,
         width: 50,
         height: 10,
-        color: "black",
+        color: "dimgrey",
         path: new Path2D,
     }
     Platforms.push(PlatformR9);
@@ -318,7 +318,7 @@ function createPlatforms() {
         posY: 240,
         width: 50,
         height: 10,
-        color: "black",
+        color: "dimgrey",
         path: new Path2D,
     }
     Platforms.push(PlatformR10);
@@ -329,7 +329,7 @@ function createPlatforms() {
         posY: 200,
         width: 50,
         height: 10,
-        color: "black",
+        color: "dimgrey",
         path: new Path2D,
     }
     Platforms.push(PlatformR11);
@@ -340,7 +340,7 @@ function createPlatforms() {
         posY: 170,
         width: 275,
         height: 10,
-        color: "black",
+        color: "dimgrey",
         path: new Path2D,
     }
     Platforms.push(PlatformR12);
@@ -351,7 +351,7 @@ function createPlatforms() {
         posY: 120,
         width: 150,
         height: 10,
-        color: "black",
+        color: "dimgrey",
         path: new Path2D,
     }
     Platforms.push(PlatformR13);
@@ -383,10 +383,7 @@ class Player {
         public dirX: number = 0,
         public dirY: number = 0,
         public GravitationalVelocity: number = 0,
-        )   { //this.x = x;
-            //this.y = y;
-            //this.velocityY = 0; 
-            }
+        )   {}
             
     draw() {
         ctx.drawImage(this.image, this.x, this.y, this.width, this.height)
@@ -405,56 +402,17 @@ class Player {
         if (this.x + this.width > canvas.width) {this.x = canvas.width - this.width;}
         if (this.y + this.height > canvas.height) {this.y = canvas.height - this.height;}
 
-        /*this.CharTopLeftX = this.x;
-        this.CharTopLeftY = this.y;
-        this.CharTopRightX = this.x + this.width;
-        this.CharTopRightY = this.y;
-        this.CharBottomLeftX = this.x;
-        this.CharBottomLeftY = this.y + this.height;
-        this.CharBottomRightX = this.x + this.width;
-        this.CharBottomRightY = this.y + this.height;
-        
-        for (let i:number = 0; i < PlatformArray.length; i++) {
-            if (ctx.isPointInPath(PlatformArray[i].path, this.CharTopLeftX, this.CharTopLeftY) == true) {
-                this.touchGrass = true;
-            } else {this.touchGrass = false;}
-        }
-    
-        for (let i:number = 0; i < PlatformArray.length; i++) {
-            if (ctx.isPointInPath(PlatformArray[i].path, this.CharTopRightX, this.CharTopRightY) == true) {
-                this.touchGrass = true;
-            } else {this.touchGrass = false;}
-        }
-    
-        for (let i:number = 0; i < PlatformArray.length; i++) {
-            if (ctx.isPointInPath(PlatformArray[i].path, this.CharBottomLeftX, this.CharBottomLeftY) == true) {
-                this.touchGrass = true;
-            } else {this.touchGrass = false;}
-        }
-    
-        for (let i:number = 0; i < PlatformArray.length; i++) {
-            if (ctx.isPointInPath(PlatformArray[i].path, this.CharBottomRightX, this.CharBottomRightY) == true) {
-                this.touchGrass = true;
-            } else {this.touchGrass = false;}
-        }*/
         this.checkPlatformCollision();
     }
 
-    /*CharTopLeftX: number = this.x;
-    CharTopLeftY: number = this.y;
-    CharTopRightX: number = this.x + this.width;
-    CharTopRightY: number = this.y;
-    CharBottomLeftX: number = this.x;
-    CharBottomLeftY: number = this.y + this.height;
-    CharBottomRightX: number = this.x + this.width;
-    CharBottomRightY: number = this.y + this.height;*/
-
     touchGrass: boolean = false;
+    touchCeiling: boolean = false;
     touchLeftWall: boolean = false;
     touchRightWall: boolean = false;
 
     checkPlatformCollision() {
         this.touchGrass = false;
+        this.touchCeiling = false;
         this.touchLeftWall = false;
         this.touchRightWall = false;
 
@@ -466,13 +424,26 @@ class Player {
         ];
 
         for (let platform of PlatformArray) {
-            //let i: number = 0;
             for (let point of FeetCollisionPoints) {
-                //i++; //check with loop iterator which collPoint is in Path, then adjust movement based on whether char is touching wall, ceiling or grass
                 if (ctx.isPointInPath(platform.path, point.x, point.y)) {
                     this.touchGrass = true;
                     this.GravitationalVelocity = 0; // Reset gravitational velocity
-                    //break;
+                }
+            }
+        }
+
+        let HeadCollisionPoints = [
+            { x: this.x + this.width * 0.3, y: this.y}, // Top-left
+            { x: this.x + this.width * 0.7, y: this.y}, // Top-right
+            { x: this.x + this.width * 0.3, y: this.y + this.height * 0.5}, // Bottom-left
+            { x: this.x + this.width * 0.7, y: this.y + this.height * 0.5} // Bottom-right
+        ];
+
+        for (let platform of PlatformArray) {
+            for (let point of HeadCollisionPoints) {
+                if (ctx.isPointInPath(platform.path, point.x, point.y)) {
+                    this.touchCeiling = true;
+                    console.log(this.touchCeiling);
                 }
             }
         }
@@ -487,8 +458,6 @@ class Player {
         for (let platform of PlatformArray) {
             for (let point of LeftCollisionPoints) {
                 if (ctx.isPointInPath(platform.path, point.x, point.y)) {
-                    //this.dirX = 0;
-                    //this.dirY = 0;
                     this.touchLeftWall = true;
                 }
             }
@@ -504,56 +473,23 @@ class Player {
         for (let platform of PlatformArray) {
             for (let point of RightCollisionPoints) {
                 if (ctx.isPointInPath(platform.path, point.x, point.y)) {
-                    //this.dirX = 0;
-                    //this.dirY = 0;
                     this.touchRightWall = true;
                 }
             }
         }
     }
 
-    /*checkPlatformCollision() {
-        this.touchGrass = false;
-        let bottomCollisionPoints = [
-            { x: this.x, y: this.y }, // Top-left
-            { x: this.x + this.width, y: this.y }, // Top-right
-            { x: this.x, y: this.y + this.height }, // Bottom-left
-            { x: this.x + this.width, y: this.y + this.height } // Bottom-right
-        ];
-
-        for (let platform of PlatformArray) {
-            let i: number = 0;
-            for (let point of bottomCollisionPoints) {
-
-                if (ctx.isPointInPath(platform.path, point.x, point.y)) {
-                    this.touchGrass = true;
-                    this.GravitationalVelocity = 0; // Reset gravitational velocity
-                    //break;
-                }
-            }
-        }
-    }*/
-
-    /*checkPlatformCollision() {
-        this.touchGrass = false;
-
-        for (let platform of PlatformArray) { 
-            if (ctx.isPointInPath(platform.path, this.CharBottomLeftX, this.CharBottomLeftY)) {
-                if (ctx.isPointInPath(platform.path, this.CharBottomRightX, this.CharBottomRightY)) {
-
-                }
-            }
-            
-        }
-    }*/
-
     accelerate(accX: number, accY: number) {
-        if (this.touchLeftWall) {
-            this.dirX = this.dirX+1;
-        } else if (this.touchRightWall){
-            this.dirX = this.dirX-1;
-        } else if (this.touchLeftWall && this.touchRightWall) {
+        if (this.touchCeiling) {
+            //accY = 0;
             this.dirY = this.dirY+1;
+            console.log("mimimi");            
+        } else if (this.touchLeftWall) {
+
+            this.dirX = this.dirX+1;
+        } else if (this.touchRightWall) {
+              this.dirX = this.dirX-1;
+
         } else {
             this.dirX += accX;
             this.dirY += accY;
@@ -561,7 +497,7 @@ class Player {
     }
 
     applyGravity() {
-        if (this.touchGrass == true) {return;} // if (floor) {leave function}
+        if (this.touchGrass) {return;} // if (floor) {leave function}
         const gravity = 0.2; // Adjust as needed
         this.GravitationalVelocity += gravity; // Update vertical velocity
         this.y += this.GravitationalVelocity; // Update character position
@@ -588,14 +524,14 @@ class goal {
     }
 }
 
-//goal objects
+// Create teo goal objects
 const Goal1 = new goal(435, 20, 150, 100)
 const Goal2 = new goal(930, 20, 150, 100)
 
 // Create two player objects
-const player1 = new Player(340, 600, 50, 50);
+const player1 = new Player(500, 600, 50, 50);
 player1.image.src = "rot_stehend.png";
-const player2 = new Player(770, 600, 50, 50);
+const player2 = new Player(990, 600, 50, 50);
 player2.image.src = "blau_stehend.png";
 
 
