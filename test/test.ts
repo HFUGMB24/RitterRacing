@@ -16,6 +16,17 @@ let PlatformArray: Platform[] = [];
 function createPlatforms() {
     let Platforms: Platform[] = [];
 
+    let RedGoal: Platform = {
+        posX: 400,
+        posY: 600,
+        width: 50,
+        height: 50,
+        color: "red",
+        path: new Path2D,
+    }
+    Platforms.push(RedGoal);
+    PlatformArray.push(RedGoal);
+
     let floor: Platform = {
         posX: 0,
         posY: 675,
@@ -130,7 +141,7 @@ class Player {
         ctx.fillRect(this.x, this.y, this.width, this.height);
     }
 
-    update() {
+    updateMovement() {
         this.dirX *= this.friction;
         this.dirY *= this.friction;
         
@@ -221,8 +232,8 @@ class Player {
         for (let platform of PlatformArray) {
             for (let point of BodyCollisionPoints) {
                 if (ctx.isPointInPath(platform.path, point.x, point.y)) {
-                    this.dirX = 0;
-                    this.dirY = 0;
+                    this.accelerate(0, 0);
+                    console.log("bonk");
                 }
             }
         }
@@ -270,15 +281,15 @@ class Player {
 
     applyGravity() {
         if (this.touchGrass == true) {return;} // if (floor) {leave function}
-        const gravity = 0.1; // Adjust as needed
+        const gravity = 0.2; // Adjust as needed
         this.GravitationalVelocity += gravity; // Update vertical velocity
         this.y += this.GravitationalVelocity; // Update character position
     }
 }
 
 // Create two player objects
-const player1 = new Player(460, 620, 50, 50, "red");
-const player2 = new Player(1410, 620, 50, 50, "blue");
+const player1 = new Player(460, 620, 30, 30, "red");
+const player2 = new Player(1410, 620, 30, 30, "blue");
 
 // Key handling
 const keys: { [key: string]: boolean } = {
@@ -318,12 +329,12 @@ function updatePlayers() {
     // Update player 1 (WASD)
     if (keys['a']) {player1.accelerate(-acceleration, 0);}
     if (keys['d']) {player1.accelerate(acceleration, 0);}
-    if (keys['w']&&player1.touchGrass) {player1.accelerate(0, -acceleration*30);}
+    if (keys['w'] && player1.touchGrass) {player1.accelerate(0, -acceleration*30);}
     
     // Update player 2 (Arrow Keys)
     if (keys['ArrowLeft']) {player2.accelerate(-acceleration, 0);}
     if (keys['ArrowRight']) {player2.accelerate(acceleration, 0);}
-    if (keys['ArrowUp']&&player2.touchGrass) {player2.accelerate(0, -acceleration*30);}
+    if (keys['ArrowUp'] && player2.touchGrass) {player2.accelerate(0, -acceleration*30);}
 }
 
 // Game loop
@@ -339,8 +350,8 @@ function update() {
     player1.applyGravity();
     player2.applyGravity();
     updatePlayers();
-    player1.update();
-    player2.update();
+    player1.updateMovement();
+    player2.updateMovement();
 }
 
 function draw() {
@@ -357,3 +368,23 @@ function gameLoop() {
 
 // Start the game loop
 gameLoop();
+
+
+/*
+let player1Win: boolean = false
+
+let PlayerCollisionPoints = [
+    { x: player1.x, y: player1.y }, // Top-left
+    { x: player1.x + player1.width, y: player1.y }, // Top-right
+    { x: player1.x, y: player1.y + player1.height }, // Bottom-left
+    { x: player1.x + player1.width, y: player1.y + player1.height } // Bottom-right
+];
+
+for (let platform of PlatformArray) {
+    for (let point of PlayerCollisionPoints) {
+        if (ctx.isPointInPath(platform.path, point.x, point.y)) {
+            player1Win = true;
+            console.log(player1Win);
+        }
+    }
+}*/
