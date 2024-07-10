@@ -87,18 +87,18 @@ function drawPlatforms(_platform) {
 }
 // Define the player class
 class Player {
-    constructor(x, y, width, height, color, 
+    constructor(x, y, width, height, 
     //public speed: number,
     dirX = 0, dirY = 0, GravitationalVelocity = 0) {
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
-        this.color = color;
         this.dirX = dirX;
         this.dirY = dirY;
         this.GravitationalVelocity = GravitationalVelocity;
         this.friction = 0.9; // Friction factor to simulate momentum
+        this.image = new Image();
         this.CharTopLeftX = this.x;
         this.CharTopLeftY = this.y;
         this.CharTopRightX = this.x + this.width;
@@ -112,8 +112,7 @@ class Player {
         //this.velocityY = 0; 
     }
     draw() {
-        ctx.fillStyle = this.color;
-        ctx.fillRect(this.x, this.y, this.width, this.height);
+        ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
     }
     update() {
         this.dirX *= this.friction;
@@ -213,8 +212,10 @@ class Player {
     }
 }
 // Create two player objects
-const player1 = new Player(460, 620, 50, 50, "red");
-const player2 = new Player(1410, 620, 50, 50, "blue");
+const player1 = new Player(340, 600, 50, 50);
+player1.image.src = "rot_stehend.png";
+const player2 = new Player(770, 600, 50, 50);
+player2.image.src = "blau_stehend.png";
 // Key handling
 const keys = {
     ArrowLeft: false,

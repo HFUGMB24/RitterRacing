@@ -109,13 +109,13 @@ function drawPlatforms(_platform: Platform[]): void {
 // Define the player class
 class Player {
     friction: number = 0.9; // Friction factor to simulate momentum
+    public image: HTMLImageElement = new Image();
     
     constructor(
         public x: number,
         public y: number,
         public width: number,
         public height: number,
-        public color: string,
         //public speed: number,
         public dirX: number = 0,
         public dirY: number = 0,
@@ -126,8 +126,7 @@ class Player {
             }
             
     draw() {
-        ctx.fillStyle = this.color;
-        ctx.fillRect(this.x, this.y, this.width, this.height);
+        ctx.drawImage(this.image, this.x, this.y, this.width, this.height)
     }
 
     CharTopLeftX: number = this.x;
@@ -239,8 +238,11 @@ class Player {
 }
 
 // Create two player objects
-const player1 = new Player(460, 620, 50, 50, "red");
-const player2 = new Player(1410, 620, 50, 50, "blue");
+const player1 = new Player(340, 600, 50, 50);
+player1.image.src = "rot_stehend.png";
+const player2 = new Player(770, 600, 50, 50);
+player2.image.src = "blau_stehend.png";
+
 
 // Key handling
 const keys: { [key: string]: boolean } = {
