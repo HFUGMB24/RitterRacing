@@ -380,7 +380,6 @@ class Player {
         public y: number,
         public width: number,
         public height: number,
-        //public speed: number,
         public dirX: number = 0,
         public dirY: number = 0,
         public GravitationalVelocity: number = 0,
@@ -441,19 +440,23 @@ class Player {
         this.checkPlatformCollision();
     }
 
-    CharTopLeftX: number = this.x;
+    /*CharTopLeftX: number = this.x;
     CharTopLeftY: number = this.y;
     CharTopRightX: number = this.x + this.width;
     CharTopRightY: number = this.y;
     CharBottomLeftX: number = this.x;
     CharBottomLeftY: number = this.y + this.height;
     CharBottomRightX: number = this.x + this.width;
-    CharBottomRightY: number = this.y + this.height;
+    CharBottomRightY: number = this.y + this.height;*/
 
     touchGrass: boolean = false;
+    touchLeftWall: boolean = false;
+    touchRightWall: boolean = false;
 
     checkPlatformCollision() {
         this.touchGrass = false;
+        this.touchLeftWall = false;
+        this.touchRightWall = false;
 
         let FeetCollisionPoints = [
             { x: this.x + this.width * 0.1, y: this.y + this.height * 0.8}, // Top-left
@@ -474,20 +477,36 @@ class Player {
             }
         }
 
-        let BodyCollisionPoints = [
+        let LeftCollisionPoints = [
             { x: this.x, y: this.y }, // Top-left
-            { x: this.x + this.width, y: this.y }, // Top-right
-            { x: this.x, y: this.y * 0.9 + this.height }, // Bottom-left
-            { x: this.x + this.width, y: this.y * 0.9 + this.height } // Bottom-right
+            //{ x: this.x + this.width, y: this.y }, // Top-right
+            { x: this.x, y: this.y + this.height * 0.5}, // Bottom-left
+            //{ x: this.x + this.width, y: this.y + this.height * 0.5} // Bottom-right
         ];
 
         for (let platform of PlatformArray) {
-            for (let point of BodyCollisionPoints) {
+            for (let point of LeftCollisionPoints) {
                 if (ctx.isPointInPath(platform.path, point.x, point.y)) {
-                    this.accelerate(0,0);
-                    this.dirX = 0;
-                    this.dirY = 0;
-                    console.log("bonk");
+                    //this.dirX = 0;
+                    //this.dirY = 0;
+                    this.touchLeftWall = true;
+                }
+            }
+        }
+
+        let RightCollisionPoints = [
+            //{ x: this.x, y: this.y }, // Top-left
+            { x: this.x + this.width, y: this.y }, // Top-right
+            //{ x: this.x, y: this.y + this.height * 0.5}, // Bottom-left
+            { x: this.x + this.width, y: this.y + this.height * 0.5} // Bottom-right
+        ];
+
+        for (let platform of PlatformArray) {
+            for (let point of RightCollisionPoints) {
+                if (ctx.isPointInPath(platform.path, point.x, point.y)) {
+                    //this.dirX = 0;
+                    //this.dirY = 0;
+                    this.touchRightWall = true;
                 }
             }
         }
@@ -529,8 +548,16 @@ class Player {
     }*/
 
     accelerate(accX: number, accY: number) {
-        this.dirX += accX;
-        this.dirY += accY;
+        if (this.touchLeftWall) {
+            this.dirX = this.dirX+1;
+        } else if (this.touchRightWall){
+            this.dirX = this.dirX-1;
+        } else if (this.touchLeftWall && this.touchRightWall) {
+            this.dirY = this.dirY+1;
+        } else {
+            this.dirX += accX;
+            this.dirY += accY;
+        }
     }
 
     applyGravity() {
@@ -665,9 +692,11 @@ function gameLoop() {
     update();
     draw();
     if (checkGoal(player1, Goal1)) {
-        displayMessage("Player 1 Win!")
+        displayMessage("Player 1 Win!");
+        return;
     } else if (checkGoal(player2, Goal2)) {
-        displayMessage("Player 2 Win!")
+        displayMessage("Player 2 Win!");
+        return;
     }
     requestAnimationFrame(gameLoop);
 }
