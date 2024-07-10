@@ -373,14 +373,13 @@ function drawPlatforms(_platform: Platform[]): void {
 // Define the player class
 class Player {
     friction: number = 0.9; // Friction factor to simulate momentum
+    public image: HTMLImageElement = new Image();
     
     constructor(
         public x: number,
         public y: number,
         public width: number,
         public height: number,
-        public color: string,
-        //public speed: number,
         public dirX: number = 0,
         public dirY: number = 0,
         public GravitationalVelocity: number = 0,
@@ -390,8 +389,7 @@ class Player {
             }
             
     draw() {
-        ctx.fillStyle = this.color;
-        ctx.fillRect(this.x, this.y, this.width, this.height);
+        ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
     }
 
     updateMovement() {
@@ -554,6 +552,8 @@ class Player {
             this.dirX = this.dirX+1;
         } else if (this.touchRightWall){
             this.dirX = this.dirX-1;
+        } else if (this.touchLeftWall && this.touchRightWall) {
+            this.dirY = this.dirY+1;
         } else {
             this.dirX += accX;
             this.dirY += accY;
@@ -593,8 +593,10 @@ const Goal1 = new goal(435, 20, 150, 100)
 const Goal2 = new goal(930, 20, 150, 100)
 
 // Create two player objects
-const player1 = new Player(460, 620, 30, 30, "red");
-const player2 = new Player(1410, 620, 30, 30, "blue");
+const player1 = new Player(500, 620, 30, 30);
+player1.image.src = "rot_stehend.png";
+const player2 = new Player(990, 620, 30, 30);
+player2.image.src = "blau_stehend.png";
 
 // Key handling
 const keys: { [key: string]: boolean } = {
