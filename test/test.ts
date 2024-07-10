@@ -71,27 +71,291 @@ function createPlatforms() {
     Platforms.push(BlueBorderRight);
     PlatformArray.push(BlueBorderRight);
 
-    let Platform1: Platform = {
-        posX: 300,
-        posY: 420,
+    let PlatformB1: Platform = {
+        posX: 900,
+        posY: 560,
+        width: 75,
+        height: 10,
+        color: "black",
+        path: new Path2D,
+    }
+    Platforms.push(PlatformB1);
+    PlatformArray.push(PlatformB1);
+
+    let PlatformB2: Platform = {
+        posX: 950,
+        posY: 600,
+        width: 150,
+        height: 10,
+        color: "black",
+        path: new Path2D,
+    }
+    Platforms.push(PlatformB2);
+    PlatformArray.push(PlatformB2);
+
+    let PlatformB3: Platform = {
+        posX: 950,
+        posY: 500,
+        width: 250,
+        height: 10,
+        color: "black",
+        path: new Path2D,
+    }
+    Platforms.push(PlatformB3);
+    PlatformArray.push(PlatformB3);
+
+    let PlatformB4: Platform = {
+        posX: 825,
+        posY: 440,
+        width: 300,
+        height: 10,
+        color: "black",
+        path: new Path2D,
+    }
+    Platforms.push(PlatformB4);
+    PlatformArray.push(PlatformB4);
+
+    let PlatformB5: Platform = {
+        posX: 840,
+        posY: 350,
+        width: 50,
+        height: 100,
+        color: "black",
+        path: new Path2D,
+    }
+    Platforms.push(PlatformB5);
+    PlatformArray.push(PlatformB5);
+
+    let PlatformB6: Platform = {
+        posX: 885,
+        posY: 400,
+        width: 50,
+        height: 50,
+        color: "black",
+        path: new Path2D,
+    }
+    Platforms.push(PlatformB6);
+    PlatformArray.push(PlatformB6);
+
+    let PlatformB7: Platform = {
+        posX: 1000,
+        posY: 350,
+        width: 225,
+        height: 10,
+        color: "black",
+        path: new Path2D,
+    }
+    Platforms.push(PlatformB7);
+    PlatformArray.push(PlatformB7);
+
+    let PlatformB8: Platform = {
+        posX: 915,
+        posY: 300,
         width: 50,
         height: 10,
         color: "black",
         path: new Path2D,
     }
-    Platforms.push(Platform1);
-    PlatformArray.push(Platform1);
+    Platforms.push(PlatformB8);
+    PlatformArray.push(PlatformB8);
 
-    let Platform2: Platform = {
-        posX: 70,
+    let PlatformB9: Platform = {
+        posX: 1050,
+        posY: 300,
+        width: 50,
+        height: 10,
+        color: "black",
+        path: new Path2D,
+    }
+    Platforms.push(PlatformB9);
+    PlatformArray.push(PlatformB9);
+
+    let PlatformB10: Platform = {
+        posX: 1105,
+        posY: 240,
+        width: 50,
+        height: 10,
+        color: "black",
+        path: new Path2D,
+    }
+    Platforms.push(PlatformB10);
+    PlatformArray.push(PlatformB10);
+
+    let PlatformB11: Platform = {
+        posX: 1150,
         posY: 200,
         width: 50,
         height: 10,
         color: "black",
         path: new Path2D,
     }
-    Platforms.push(Platform2);
-    PlatformArray.push(Platform2);
+    Platforms.push(PlatformB11);
+    PlatformArray.push(PlatformB11);
+
+    let PlatformB12: Platform = {
+        posX: 830,
+        posY: 170,
+        width: 275,
+        height: 10,
+        color: "black",
+        path: new Path2D,
+    }
+    Platforms.push(PlatformB12);
+    PlatformArray.push(PlatformB12);
+
+    let PlatformB13: Platform = {
+        posX: 930,
+        posY: 120,
+        width: 150,
+        height: 10,
+        color: "black",
+        path: new Path2D,
+    }
+    Platforms.push(PlatformB13);
+    PlatformArray.push(PlatformB13);
+
+    let PlatformR1: Platform = {
+        posX: 400,
+        posY: 560,
+        width: 75,
+        height: 10,
+        color: "black",
+        path: new Path2D,
+    }
+    Platforms.push(PlatformR1);
+    PlatformArray.push(PlatformR1);
+
+    let PlatformR2: Platform = {
+        posX: 450,
+        posY: 600,
+        width: 150,
+        height: 10,
+        color: "black",
+        path: new Path2D,
+    }
+    Platforms.push(PlatformR2);
+    PlatformArray.push(PlatformR2);
+
+    let PlatformR3: Platform = {
+        posX: 475,
+        posY: 500,
+        width: 250,
+        height: 10,
+        color: "black",
+        path: new Path2D,
+    }
+    Platforms.push(PlatformR3);
+    PlatformArray.push(PlatformR3);
+
+    let PlatformR4: Platform = {
+        posX: 325,
+        posY: 440,
+        width: 300,
+        height: 10,
+        color: "black",
+        path: new Path2D,
+    }
+    Platforms.push(PlatformR4);
+    PlatformArray.push(PlatformR4);
+
+    let PlatformR5: Platform = {
+        posX: 350,
+        posY: 350,
+        width: 50,
+        height: 100,
+        color: "black",
+        path: new Path2D,
+    }
+    Platforms.push(PlatformR5);
+    PlatformArray.push(PlatformR5);
+
+    let PlatformR6: Platform = {
+        posX: 390,
+        posY: 400,
+        width: 50,
+        height: 50,
+        color: "black",
+        path: new Path2D,
+    }
+    Platforms.push(PlatformR6);
+    PlatformArray.push(PlatformR6);
+
+    let PlatformR7: Platform = {
+        posX: 500,
+        posY: 350,
+        width: 225,
+        height: 10,
+        color: "black",
+        path: new Path2D,
+    }
+    Platforms.push(PlatformR7);
+    PlatformArray.push(PlatformR7);
+
+    let PlatformR8: Platform = {
+        posX: 420,
+        posY: 300,
+        width: 50,
+        height: 10,
+        color: "black",
+        path: new Path2D,
+    }
+    Platforms.push(PlatformR8);
+    PlatformArray.push(PlatformR8);
+
+    let PlatformR9: Platform = {
+        posX: 550,
+        posY: 300,
+        width: 50,
+        height: 10,
+        color: "black",
+        path: new Path2D,
+    }
+    Platforms.push(PlatformR9);
+    PlatformArray.push(PlatformR9);
+
+    let PlatformR10: Platform = {
+        posX: 615,
+        posY: 240,
+        width: 50,
+        height: 10,
+        color: "black",
+        path: new Path2D,
+    }
+    Platforms.push(PlatformR10);
+    PlatformArray.push(PlatformR10);
+
+    let PlatformR11: Platform = {
+        posX: 660,
+        posY: 200,
+        width: 50,
+        height: 10,
+        color: "black",
+        path: new Path2D,
+    }
+    Platforms.push(PlatformR11);
+    PlatformArray.push(PlatformR11);
+
+    let PlatformR12: Platform = {
+        posX: 340,
+        posY: 170,
+        width: 275,
+        height: 10,
+        color: "black",
+        path: new Path2D,
+    }
+    Platforms.push(PlatformR12);
+    PlatformArray.push(PlatformR12);
+
+    let PlatformR13: Platform = {
+        posX: 435,
+        posY: 120,
+        width: 150,
+        height: 10,
+        color: "black",
+        path: new Path2D,
+    }
+    Platforms.push(PlatformR13);
+    PlatformArray.push(PlatformR13);
 
     return Platforms;
 }
@@ -293,14 +557,14 @@ class goal {
     }
 
     draw() {
-        ctx.fillStyle = 'green';
+        ctx.fillStyle = '#00000000';
         ctx.fillRect(this.goalx, this.goaly, this.goalwidth, this.goalheight);
     }
 }
 
 //goal objects
-const Goal1 = new goal(400, 600, 50, 50)
-const Goal2 = new goal(1200, 600, 100, 100)
+const Goal1 = new goal(435, 20, 150, 100)
+const Goal2 = new goal(930, 20, 150, 100)
 
 // Create two player objects
 const player1 = new Player(460, 620, 30, 30, "red");
@@ -364,9 +628,9 @@ function checkGoal(player: Player, goal: goal): boolean {
 }
 
 function displayMessage(message: string) {
-    ctx.fillStyle = 'black';
+    ctx.fillStyle = 'green';
     ctx.font = '48px serif'
-    ctx.fillText(message, canvas.width/4, canvas.height/2);
+    ctx.fillText(message, canvas.width/2, canvas.height/2);
 }
 
 
