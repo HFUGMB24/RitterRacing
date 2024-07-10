@@ -247,32 +247,22 @@ class Player {
         this.y += this.GravitationalVelocity; // Update character position
     }
 }
-
-
-
 //goal class
 class goal {
-
-    constructor (goalx, goaly, goalwidth, goalheight) {
+    constructor(goalx, goaly, goalwidth, goalheight) {
         this.goalx = goalx;
         this.goaly = goaly;
         this.goalwidth = goalwidth;
         this.goalheight = goalheight;
     }
-
     draw() {
-        ctx.fillStyle = "green";
+        ctx.fillStyle = 'green';
         ctx.fillRect(this.goalx, this.goaly, this.goalwidth, this.goalheight);
     }
 }
-
 //goal objects
-const Goal1 = new goal(0, 400, 75, 75)
-const Goal2 = new goal(100, 400, 75, 75)
-
-
-
-
+const Goal1 = new goal(0, -200, 50, 50);
+const Goal2 = new goal(300, -100, 100, 100);
 // Create two player objects
 const player1 = new Player(460, 620, 50, 50, "red");
 const player2 = new Player(1410, 620, 50, 50, "blue");
@@ -326,34 +316,23 @@ function updatePlayers() {
         player2.accelerate(0, -acceleration * 30);
     }
 }
-
-
 //check if player has entered goal function
 function checkGoal(player, goal) {
-
-
     if (player.x >= goal.goalx &&
         player.x < goal.goalx + goal.goalwidth &&
         player.y >= goal.goaly &&
-        player.y < goal.goaly + goal.goalheight)
-        {return true}
-        else {return false}
+        player.y < goal.goaly + goal.goalheight) {
+        return true;
+    }
+    else {
+        return false;
+    }
 }
-
-/*function debugmessage() {
-    console.log(player1)
-    console.log(Goal1)
-}*/
-
-
 function displayMessage(message) {
     ctx.fillStyle = 'black';
-    ctx.font = '48px serif'
-    ctx.fillText(message, canvas.width/4, canvas.height/2);
+    ctx.font = '48px serif';
+    ctx.fillText(message, canvas.width / 4, canvas.height / 2);
 }
-
-
-
 // Game loop
 drawPlatforms(createPlatforms());
 let imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
@@ -361,18 +340,12 @@ function clear() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.putImageData(imgData, 0, 0);
 }
-
-
-
-
 function update() {
     player1.applyGravity();
     player2.applyGravity();
     updatePlayers();
     player1.update();
     player2.update();
-    player1.applyGravity();
-    player2.applyGravity();
 }
 function draw() {
     player1.draw();
@@ -385,12 +358,12 @@ function gameLoop() {
     update();
     draw();
     if (checkGoal(player1, Goal1)) {
-        displayMessage("Player 1 Win!")
-    } else if (checkGoal(player2, Goal2)) {
-        displayMessage("Player 2 Win!")
+        displayMessage("Player 1 Win!");
+    }
+    else if (checkGoal(player2, Goal2)) {
+        displayMessage("Player 2 Win!");
     }
     requestAnimationFrame(gameLoop);
 }
 // Start the game loop
-//setInterval (debugmessage, 1000)
 gameLoop();

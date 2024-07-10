@@ -5,16 +5,6 @@ let ctx = canvas.getContext('2d');
 let PlatformArray = [];
 function createPlatforms() {
     let Platforms = [];
-    let RedGoal = {
-        posX: 400,
-        posY: 600,
-        width: 50,
-        height: 50,
-        color: "red",
-        path: new Path2D,
-    };
-    Platforms.push(RedGoal);
-    PlatformArray.push(RedGoal);
     let floor = {
         posX: 0,
         posY: 675,
@@ -257,6 +247,22 @@ class Player {
         this.y += this.GravitationalVelocity; // Update character position
     }
 }
+//goal class
+class goal {
+    constructor(goalx, goaly, goalwidth, goalheight) {
+        this.goalx = goalx;
+        this.goaly = goaly;
+        this.goalwidth = goalwidth;
+        this.goalheight = goalheight;
+    }
+    draw() {
+        ctx.fillStyle = 'green';
+        ctx.fillRect(this.goalx, this.goaly, this.goalwidth, this.goalheight);
+    }
+}
+//goal objects
+const Goal1 = new goal(400, 600, 50, 50);
+const Goal2 = new goal(1200, 600, 100, 100);
 // Create two player objects
 const player1 = new Player(460, 620, 30, 30, "red");
 const player2 = new Player(1410, 620, 30, 30, "blue");
@@ -310,6 +316,23 @@ function updatePlayers() {
         player2.accelerate(0, -acceleration * 30);
     }
 }
+//check if player has entered goal function
+function checkGoal(player, goal) {
+    if (player.x >= goal.goalx &&
+        player.x < goal.goalx + goal.goalwidth &&
+        player.y >= goal.goaly &&
+        player.y < goal.goaly + goal.goalheight) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+function displayMessage(message) {
+    ctx.fillStyle = 'black';
+    ctx.font = '48px serif';
+    ctx.fillText(message, canvas.width / 4, canvas.height / 2);
+}
 // Game loop
 drawPlatforms(createPlatforms());
 let imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
@@ -327,11 +350,19 @@ function update() {
 function draw() {
     player1.draw();
     player2.draw();
+    Goal1.draw();
+    Goal2.draw();
 }
 function gameLoop() {
     clear();
     update();
     draw();
+    if (checkGoal(player1, Goal1)) {
+        displayMessage("Player 1 Win!");
+    }
+    else if (checkGoal(player2, Goal2)) {
+        displayMessage("Player 2 Win!");
+    }
     requestAnimationFrame(gameLoop);
 }
 // Start the game loop
