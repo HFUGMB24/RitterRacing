@@ -265,7 +265,7 @@ function updatePlayers() {
     // Update player 1 (WASD)
     if (keys['a']) player1.accelerate(-acceleration, 0);
     if (keys['d']) player1.accelerate(acceleration, 0);
-    if (keys['w']) player1.accelerate(0, -acceleration);
+    if (keys['w']&&player1.touchGrass) player1.accelerate(0, -acceleration*30);
     
     // Update player 2 (Arrow Keys)
     if (keys['ArrowLeft']) player2.accelerate(-acceleration, 0);
@@ -283,11 +283,11 @@ function clear() {
 }
 
 function update() {
+    player1.applyGravity();
+    player2.applyGravity();
     updatePlayers();
     player1.update();
     player2.update();
-    player1.applyGravity();
-    player2.applyGravity();
 }
 
 function draw() {
