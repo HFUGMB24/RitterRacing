@@ -20,8 +20,8 @@ function createPlatforms() {
         posX: 0,
         posY: 675,
         width: canvas.width,
-        height: 10,
-        color: "#00000000",
+        height: 50,
+        color: "black",
         path: new Path2D,
     }
     Platforms.push(floor);
@@ -32,7 +32,7 @@ function createPlatforms() {
         posY: 0,
         width: 50,
         height: canvas.height,
-        color: "#00000000",
+        color: "black",
         path: new Path2D,
     }
     Platforms.push(RedBorderLeft);
@@ -43,7 +43,7 @@ function createPlatforms() {
         posY: 0,
         width: 50,
         height: canvas.height,
-        color: "#00000000",
+        color: "black",
         path: new Path2D,
     }
     Platforms.push(RedBorderRight);
@@ -54,7 +54,7 @@ function createPlatforms() {
         posY: 0,
         width: 50,
         height: canvas.height,
-        color: "#00000000",
+        color: "black",
         path: new Path2D,
     }
     Platforms.push(BlueBorderLeft);
@@ -65,7 +65,7 @@ function createPlatforms() {
         posY: 0,
         width: 50,
         height: canvas.height,
-        color: "#00000000",
+        color: "black",
         path: new Path2D,
     }
     Platforms.push(BlueBorderRight);
@@ -125,19 +125,19 @@ class Player {
             //this.velocityY = 0; 
             }
             
-            draw() {
+    draw() {
         ctx.fillStyle = this.color;
         ctx.fillRect(this.x, this.y, this.width, this.height);
     }
 
-    /*CharTopLeftX: number = this.x;
+    CharTopLeftX: number = this.x;
     CharTopLeftY: number = this.y;
     CharTopRightX: number = this.x + this.width;
     CharTopRightY: number = this.y;
     CharBottomLeftX: number = this.x;
     CharBottomLeftY: number = this.y + this.height;
     CharBottomRightX: number = this.x + this.width;
-    CharBottomRightY: number = this.y + this.height;*/
+    CharBottomRightY: number = this.y + this.height;
     
     
     update() {
@@ -161,7 +161,7 @@ class Player {
         this.CharBottomLeftY = this.y + this.height;
         this.CharBottomRightX = this.x + this.width;
         this.CharBottomRightY = this.y + this.height;
-
+        
         for (let i:number = 0; i < PlatformArray.length; i++) {
             if (ctx.isPointInPath(PlatformArray[i].path, this.CharTopLeftX, this.CharTopLeftY) == true) {
                 this.touchGrass = true;
@@ -192,7 +192,7 @@ class Player {
 
     checkPlatformCollision() {
         this.touchGrass = false;
-        let points = [
+        let collisionPoints = [
             { x: this.x, y: this.y }, // Top-left
             { x: this.x + this.width, y: this.y }, // Top-right
             { x: this.x, y: this.y + this.height }, // Bottom-left
@@ -200,7 +200,9 @@ class Player {
         ];
 
         for (let platform of PlatformArray) {
-            for (let point of points) {
+            let i: number = 0;
+            for (let point of collisionPoints) {
+                i++; //check with loop iterator which collPoint is in Path, then adjust movement based on whether char is touching wall, ceiling or grass
                 if (ctx.isPointInPath(platform.path, point.x, point.y)) {
                     this.touchGrass = true;
                     this.GravitationalVelocity = 0; // Reset gravitational velocity
@@ -209,6 +211,19 @@ class Player {
             }
         }
     }
+
+    /*checkPlatformCollision() {
+        this.touchGrass = false;
+
+        for (let platform of PlatformArray) { 
+            if (ctx.isPointInPath(platform.path, this.CharBottomLeftX, this.CharBottomLeftY)) {
+                if (ctx.isPointInPath(platform.path, this.CharBottomRightX, this.CharBottomRightY)) {
+
+                }
+            }
+            
+        }
+    }*/
 
     accelerate(accX: number, accY: number) {
         this.dirX += accX;
@@ -224,8 +239,8 @@ class Player {
 }
 
 // Create two player objects
-const player1 = new Player(50, 50, 50, 50, "blue");
-const player2 = new Player(200, 50, 50, 50, "red");
+const player1 = new Player(460, 620, 50, 50, "red");
+const player2 = new Player(1410, 620, 50, 50, "blue");
 
 // Key handling
 const keys: { [key: string]: boolean } = {
