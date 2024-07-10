@@ -193,10 +193,10 @@ class Player {
         this.touchGrass = false;
 
         let FeetCollisionPoints = [
-            { x: this.x * 1.1, y: this.y * 0.8 + this.height }, // Top-left
-            { x: this.x * 0.9 + this.width, y: this.y * 0.8 + this.height}, // Top-right
-            { x: this.x * 1.1, y: this.y + this.height }, // Bottom-left
-            { x: this.x * 0.9 + this.width, y: this.y + this.height } // Bottom-right
+            { x: this.x + this.width * 0.1, y: this.y + this.height * 0.8}, // Top-left
+            { x: this.x + this.width * 0.9, y: this.y + this.height * 0.8}, // Top-right
+            { x: this.x + this.width * 0.1, y: this.y + this.height }, // Bottom-left
+            { x: this.x + this.width * 0.9, y: this.y + this.height } // Bottom-right
         ];
 
         for (let platform of PlatformArray) {
@@ -221,7 +221,9 @@ class Player {
         for (let platform of PlatformArray) {
             for (let point of BodyCollisionPoints) {
                 if (ctx.isPointInPath(platform.path, point.x, point.y)) {
-                    this.accelerate(0, 0);
+                    this.accelerate(0,0);
+                    this.dirX = 0;
+                    this.dirY = 0;
                     console.log("bonk");
                 }
             }
@@ -406,23 +408,3 @@ function gameLoop() {
 
 // Start the game loop
 gameLoop();
-
-
-/*
-let player1Win: boolean = false
-
-let PlayerCollisionPoints = [
-    { x: player1.x, y: player1.y }, // Top-left
-    { x: player1.x + player1.width, y: player1.y }, // Top-right
-    { x: player1.x, y: player1.y + player1.height }, // Bottom-left
-    { x: player1.x + player1.width, y: player1.y + player1.height } // Bottom-right
-];
-
-for (let platform of PlatformArray) {
-    for (let point of PlayerCollisionPoints) {
-        if (ctx.isPointInPath(platform.path, point.x, point.y)) {
-            player1Win = true;
-            console.log(player1Win);
-        }
-    }
-}*/
