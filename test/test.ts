@@ -130,16 +130,6 @@ class Player {
         ctx.fillRect(this.x, this.y, this.width, this.height);
     }
 
-    CharTopLeftX: number = this.x;
-    CharTopLeftY: number = this.y;
-    CharTopRightX: number = this.x + this.width;
-    CharTopRightY: number = this.y;
-    CharBottomLeftX: number = this.x;
-    CharBottomLeftY: number = this.y + this.height;
-    CharBottomRightX: number = this.x + this.width;
-    CharBottomRightY: number = this.y + this.height;
-    
-    
     update() {
         this.dirX *= this.friction;
         this.dirY *= this.friction;
@@ -188,11 +178,59 @@ class Player {
         this.checkPlatformCollision();
     }
 
+    CharTopLeftX: number = this.x;
+    CharTopLeftY: number = this.y;
+    CharTopRightX: number = this.x + this.width;
+    CharTopRightY: number = this.y;
+    CharBottomLeftX: number = this.x;
+    CharBottomLeftY: number = this.y + this.height;
+    CharBottomRightX: number = this.x + this.width;
+    CharBottomRightY: number = this.y + this.height;
+
     touchGrass: boolean = false;
 
     checkPlatformCollision() {
         this.touchGrass = false;
-        let collisionPoints = [
+
+        let FeetCollisionPoints = [
+            { x: this.x * 1.1, y: this.y * 0.8 + this.height }, // Top-left
+            { x: this.x * 0.9 + this.width, y: this.y * 0.8 + this.height}, // Top-right
+            { x: this.x * 1.1, y: this.y + this.height }, // Bottom-left
+            { x: this.x * 0.9 + this.width, y: this.y + this.height } // Bottom-right
+        ];
+
+        for (let platform of PlatformArray) {
+            //let i: number = 0;
+            for (let point of FeetCollisionPoints) {
+                //i++; //check with loop iterator which collPoint is in Path, then adjust movement based on whether char is touching wall, ceiling or grass
+                if (ctx.isPointInPath(platform.path, point.x, point.y)) {
+                    this.touchGrass = true;
+                    this.GravitationalVelocity = 0; // Reset gravitational velocity
+                    //break;
+                }
+            }
+        }
+
+        let BodyCollisionPoints = [
+            { x: this.x, y: this.y }, // Top-left
+            { x: this.x + this.width, y: this.y }, // Top-right
+            { x: this.x, y: this.y * 0.9 + this.height }, // Bottom-left
+            { x: this.x + this.width, y: this.y * 0.9 + this.height } // Bottom-right
+        ];
+
+        for (let platform of PlatformArray) {
+            for (let point of BodyCollisionPoints) {
+                if (ctx.isPointInPath(platform.path, point.x, point.y)) {
+                    this.dirX = 0;
+                    this.dirY = 0;
+                }
+            }
+        }
+    }
+
+    /*checkPlatformCollision() {
+        this.touchGrass = false;
+        let bottomCollisionPoints = [
             { x: this.x, y: this.y }, // Top-left
             { x: this.x + this.width, y: this.y }, // Top-right
             { x: this.x, y: this.y + this.height }, // Bottom-left
@@ -201,8 +239,8 @@ class Player {
 
         for (let platform of PlatformArray) {
             let i: number = 0;
-            for (let point of collisionPoints) {
-                i++; //check with loop iterator which collPoint is in Path, then adjust movement based on whether char is touching wall, ceiling or grass
+            for (let point of bottomCollisionPoints) {
+
                 if (ctx.isPointInPath(platform.path, point.x, point.y)) {
                     this.touchGrass = true;
                     this.GravitationalVelocity = 0; // Reset gravitational velocity
@@ -210,7 +248,7 @@ class Player {
                 }
             }
         }
-    }
+    }*/
 
     /*checkPlatformCollision() {
         this.touchGrass = false;
@@ -278,14 +316,14 @@ function updatePlayers() {
     const acceleration = 0.5;
     
     // Update player 1 (WASD)
-    if (keys['a']) player1.accelerate(-acceleration, 0);
-    if (keys['d']) player1.accelerate(acceleration, 0);
-    if (keys['w']&&player1.touchGrass) player1.accelerate(0, -acceleration*30);
+    if (keys['a']) {player1.accelerate(-acceleration, 0);}
+    if (keys['d']) {player1.accelerate(acceleration, 0);}
+    if (keys['w']&&player1.touchGrass) {player1.accelerate(0, -acceleration*30);}
     
     // Update player 2 (Arrow Keys)
-    if (keys['ArrowLeft']) player2.accelerate(-acceleration, 0);
-    if (keys['ArrowRight']) player2.accelerate(acceleration, 0);
-    if (keys['ArrowUp']) player2.accelerate(0, -acceleration);
+    if (keys['ArrowLeft']) {player2.accelerate(-acceleration, 0);}
+    if (keys['ArrowRight']) {player2.accelerate(acceleration, 0);}
+    if (keys['ArrowUp']&&player2.touchGrass) {player2.accelerate(0, -acceleration*30);}
 }
 
 // Game loop

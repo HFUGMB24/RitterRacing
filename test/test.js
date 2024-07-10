@@ -169,16 +169,16 @@ class Player {
     }
     checkPlatformCollision() {
         this.touchGrass = false;
-        let collisionPoints = [
-            { x: this.x, y: this.y }, // Top-left
-            { x: this.x + this.width, y: this.y }, // Top-right
-            { x: this.x, y: this.y + this.height }, // Bottom-left
-            { x: this.x + this.width, y: this.y + this.height } // Bottom-right
+        let FeetCollisionPoints = [
+            { x: this.x * 1.1, y: this.y * 0.8 + this.height }, // Top-left
+            { x: this.x * 0.9 + this.width, y: this.y * 0.8 + this.height }, // Top-right
+            { x: this.x * 1.1, y: this.y + this.height }, // Bottom-left
+            { x: this.x * 0.9 + this.width, y: this.y + this.height } // Bottom-right
         ];
         for (let platform of PlatformArray) {
-            let i = 0;
-            for (let point of collisionPoints) {
-                i++; //check with loop iterator which collPoint is in Path, then adjust movement based on whether char is touching wall, ceiling or grass
+            //let i: number = 0;
+            for (let point of FeetCollisionPoints) {
+                //i++; //check with loop iterator which collPoint is in Path, then adjust movement based on whether char is touching wall, ceiling or grass
                 if (ctx.isPointInPath(platform.path, point.x, point.y)) {
                     this.touchGrass = true;
                     this.GravitationalVelocity = 0; // Reset gravitational velocity
@@ -186,7 +186,42 @@ class Player {
                 }
             }
         }
+        let BodyCollisionPoints = [
+            { x: this.x, y: this.y }, // Top-left
+            { x: this.x + this.width, y: this.y }, // Top-right
+            { x: this.x, y: this.y * 0.9 + this.height }, // Bottom-left
+            { x: this.x + this.width, y: this.y * 0.9 + this.height } // Bottom-right
+        ];
+        for (let platform of PlatformArray) {
+            for (let point of BodyCollisionPoints) {
+                if (ctx.isPointInPath(platform.path, point.x, point.y)) {
+                    this.dirX = 0;
+                    this.dirY = 0;
+                }
+            }
+        }
     }
+    /*checkPlatformCollision() {
+        this.touchGrass = false;
+        let bottomCollisionPoints = [
+            { x: this.x, y: this.y }, // Top-left
+            { x: this.x + this.width, y: this.y }, // Top-right
+            { x: this.x, y: this.y + this.height }, // Bottom-left
+            { x: this.x + this.width, y: this.y + this.height } // Bottom-right
+        ];
+
+        for (let platform of PlatformArray) {
+            let i: number = 0;
+            for (let point of bottomCollisionPoints) {
+
+                if (ctx.isPointInPath(platform.path, point.x, point.y)) {
+                    this.touchGrass = true;
+                    this.GravitationalVelocity = 0; // Reset gravitational velocity
+                    //break;
+                }
+            }
+        }
+    }*/
     /*checkPlatformCollision() {
         this.touchGrass = false;
 
@@ -245,19 +280,25 @@ function updatePlayers() {
     // Acceleration factor
     const acceleration = 0.5;
     // Update player 1 (WASD)
-    if (keys['a'])
+    if (keys['a']) {
         player1.accelerate(-acceleration, 0);
-    if (keys['d'])
+    }
+    if (keys['d']) {
         player1.accelerate(acceleration, 0);
-    if (keys['w'] && player1.touchGrass)
+    }
+    if (keys['w'] && player1.touchGrass) {
         player1.accelerate(0, -acceleration * 30);
+    }
     // Update player 2 (Arrow Keys)
-    if (keys['ArrowLeft'])
+    if (keys['ArrowLeft']) {
         player2.accelerate(-acceleration, 0);
-    if (keys['ArrowRight'])
+    }
+    if (keys['ArrowRight']) {
         player2.accelerate(acceleration, 0);
-    if (keys['ArrowUp'])
-        player2.accelerate(0, -acceleration);
+    }
+    if (keys['ArrowUp'] && player2.touchGrass) {
+        player2.accelerate(0, -acceleration * 30);
+    }
 }
 // Game loop
 drawPlatforms(createPlatforms());
