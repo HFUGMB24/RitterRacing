@@ -2,6 +2,19 @@
 // Get the canvas element and context
 let canvas = document.querySelector("canvas");
 let ctx = canvas.getContext('2d');
+let countdown = 3;
+function updateTimer() {
+    const timerElement = document.getElementById("timer");
+    timerElement.innerHTML = countdown.toString();
+    if (countdown === 0) {
+        clearInterval(timerInterval);
+        timerElement.innerHTML = "Start!";
+    }
+    else {
+        countdown--;
+    }
+}
+const timerInterval = setInterval(updateTimer, 1000);
 let PlatformArray = [];
 function createPlatforms() {
     let Platforms = [];
@@ -327,9 +340,7 @@ function drawPlatforms(_platform) {
 }
 // Define the player class
 class Player {
-    constructor(x, y, width, height, color, 
-    //public speed: number,
-    dirX = 0, dirY = 0, GravitationalVelocity = 0) {
+    constructor(x, y, width, height, dirX = 0, dirY = 0, GravitationalVelocity = 0) {
         this.x = x;
         this.y = y;
         this.width = width;
@@ -338,14 +349,15 @@ class Player {
         this.dirY = dirY;
         this.GravitationalVelocity = GravitationalVelocity;
         this.friction = 0.9; // Friction factor to simulate momentum
-        this.CharTopLeftX = this.x;
-        this.CharTopLeftY = this.y;
-        this.CharTopRightX = this.x + this.width;
-        this.CharTopRightY = this.y;
-        this.CharBottomLeftX = this.x;
-        this.CharBottomLeftY = this.y + this.height;
-        this.CharBottomRightX = this.x + this.width;
-        this.CharBottomRightY = this.y + this.height;
+        this.image = new Image();
+        /*CharTopLeftX: number = this.x;
+        CharTopLeftY: number = this.y;
+        CharTopRightX: number = this.x + this.width;
+        CharTopRightY: number = this.y;
+        CharBottomLeftX: number = this.x;
+        CharBottomLeftY: number = this.y + this.height;
+        CharBottomRightX: number = this.x + this.width;
+        CharBottomRightY: number = this.y + this.height;*/
         this.touchGrass = false;
         this.touchLeftWall = false;
         this.touchRightWall = false;
@@ -533,8 +545,10 @@ class goal {
 const Goal1 = new goal(435, 20, 150, 100);
 const Goal2 = new goal(930, 20, 150, 100);
 // Create two player objects
-const player1 = new Player(460, 620, 30, 30, "red");
-const player2 = new Player(1410, 620, 30, 30, "blue");
+const player1 = new Player(340, 600, 50, 50);
+player1.image.src = "rot_stehend.png";
+const player2 = new Player(770, 600, 50, 50);
+player2.image.src = "blau_stehend.png";
 // Key handling
 const keys = {
     ArrowLeft: false,
@@ -622,7 +636,11 @@ function draw() {
     Goal1.draw();
     Goal2.draw();
 }
-function gameLoop() {
+let loopTime;
+let oldTime;
+function gameLoop(elepsTime) {
+    loopTime = elepsTime - oldTime;
+    oldTime = elepsTime;
     clear();
     update();
     draw();
@@ -634,7 +652,8 @@ function gameLoop() {
         displayMessage("Player 2 Win!");
         return;
     }
+    updateTimer();
     requestAnimationFrame(gameLoop);
 }
 // Start the game loop
-gameLoop();
+requestAnimationFrame(gameLoop);
