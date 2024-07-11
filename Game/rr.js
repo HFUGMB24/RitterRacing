@@ -441,8 +441,8 @@ class Player {
     }
     accelerate(accX, accY) {
         if (this.touchLeftWall) {
-            this.x = this.x + 5;
-            //this.dirX = this.dirX+1;
+            //this.x = this.x+5;
+            this.dirX = this.dirX + 1;
         }
         else if (this.touchRightWall) {
             this.dirX = this.dirX - 1;

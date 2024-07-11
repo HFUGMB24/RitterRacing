@@ -389,7 +389,7 @@ function drawPlatforms(_platform: Platform[]): void {
 // Define the player class
 class Player {
     friction: number = 0.9; // Friction factor to simulate momentum
-    public image: HTMLImageElement = new Image();
+    public image: HTMLImageElement = new Image(); // setup character sprites
     
     constructor(
         public x: number,
@@ -402,7 +402,7 @@ class Player {
         )   {}
             
     draw() {
-        ctx.drawImage(this.image, this.x, this.y, this.width, this.height)
+        ctx.drawImage(this.image, this.x, this.y, this.width, this.height) // draw character sprite
     }
 
     updateMovement() {
@@ -412,7 +412,7 @@ class Player {
         this.x += this.dirX;
         this.y += this.dirY;
         
-        // Prevent the player from going out of bounds
+        // Prevent the player from going out of canvas bounds
         if (this.x < 0) {this.x = 0;}
         if (this.y < 0) {this.y = 0;}
         if (this.x + this.width > canvas.width) {this.x = canvas.width - this.width;}
@@ -421,26 +421,27 @@ class Player {
         this.checkPlatformCollision();
     }
 
+    // setup collision booleans
     touchGrass: boolean = false;
     touchCeiling: boolean = false;
     touchLeftWall: boolean = false;
     touchRightWall: boolean = false;
 
     checkPlatformCollision() {
+        // reset collision booleans
         this.touchGrass = false;
         this.touchCeiling = false;
         this.touchLeftWall = false;
         this.touchRightWall = false;
-        console.log(this.touchCeiling)
 
-        let FeetCollisionPoints = [
+        let FeetCollisionPoints = [ // feet collision box
             { x: this.x + this.width * 0.1, y: this.y + this.height * 0.8}, // Top-left
             { x: this.x + this.width * 0.9, y: this.y + this.height * 0.8}, // Top-right
             { x: this.x + this.width * 0.1, y: this.y + this.height }, // Bottom-left
             { x: this.x + this.width * 0.9, y: this.y + this.height } // Bottom-right
         ];
 
-        for (let platform of PlatformArray) {
+        for (let platform of PlatformArray) { // check fo collision with Path2d object
             for (let point of FeetCollisionPoints) {
                 if (ctx.isPointInPath(platform.path, point.x, point.y)) {
                     this.touchGrass = true;
@@ -449,14 +450,14 @@ class Player {
             }
         }
 
-        let HeadCollisionPoints = [
+        let HeadCollisionPoints = [ // head collision box
             { x: this.x + this.width * 0.4, y: this.y}, // Top-left
             { x: this.x + this.width * 0.6, y: this.y}, // Top-right
             { x: this.x + this.width * 0.4, y: this.y + this.height * 0.5}, // Bottom-left
             { x: this.x + this.width * 0.6, y: this.y + this.height * 0.5} // Bottom-right
         ];
 
-        for (let platform of PlatformArray) {
+        for (let platform of PlatformArray) { // check fo collision with Path2d object
             for (let point of HeadCollisionPoints) {
                 if (ctx.isPointInPath(platform.path, point.x, point.y)) {
                     this.touchCeiling = true;
@@ -465,14 +466,14 @@ class Player {
             }
         }
 
-        let LeftCollisionPoints = [
+        let LeftCollisionPoints = [ // left side collision box
             { x: this.x, y: this.y }, // Top-left
             //{ x: this.x + this.width, y: this.y }, // Top-right
             { x: this.x, y: this.y + this.height * 0.5}, // Bottom-left
             //{ x: this.x + this.width, y: this.y + this.height * 0.5} // Bottom-right
         ];
 
-        for (let platform of PlatformArray) {
+        for (let platform of PlatformArray) { // check fo collision with Path2d object
             for (let point of LeftCollisionPoints) {
                 if (ctx.isPointInPath(platform.path, point.x, point.y)) {
                     this.touchLeftWall = true;
@@ -480,14 +481,14 @@ class Player {
             }
         }
 
-        let RightCollisionPoints = [
+        let RightCollisionPoints = [ // right side collision box
             //{ x: this.x, y: this.y }, // Top-left
             { x: this.x + this.width, y: this.y }, // Top-right
             //{ x: this.x, y: this.y + this.height * 0.5}, // Bottom-left
             { x: this.x + this.width, y: this.y + this.height * 0.5} // Bottom-right
         ];
 
-        for (let platform of PlatformArray) {
+        for (let platform of PlatformArray) { // check fo collision with Path2d object
             for (let point of RightCollisionPoints) {
                 if (ctx.isPointInPath(platform.path, point.x, point.y)) {
                     this.touchRightWall = true;
@@ -497,12 +498,12 @@ class Player {
     }
 
     accelerate(accX: number, accY: number) {
-        if (this.touchLeftWall) {
+        if (this.touchLeftWall) { // bounce off left wall
             //this.x = this.x+5;
             this.dirX = this.dirX+1;
-        } else if (this.touchRightWall) {
+        } else if (this.touchRightWall) { // bounce off right wall
             this.dirX = this.dirX-1;
-        } else {
+        } else { // normal movement
             this.dirX += accX;
             this.dirY += accY;
         }
@@ -510,10 +511,10 @@ class Player {
 
     applyGravity() {
         if (this.touchGrass) {return;} // if (floor) {leave function}
-        if (this.touchCeiling) {
+        if (this.touchCeiling) { // bounce off ceiling
             this.dirY = this.dirY*-0.1;         
         }
-        const gravity = 0.2; // Adjust as needed
+        const gravity = 0.2; // set gravity
         this.GravitationalVelocity += gravity; // Update vertical velocity
         this.y += this.GravitationalVelocity; // Update character position
     }
@@ -539,15 +540,15 @@ class goal {
     }
 }
 
-// Create teo goal objects
-const Goal1 = new goal(435, 20, 150, 100)
-const Goal2 = new goal(930, 20, 150, 100)
+// Create two goal objects
+const Goal1 = new goal(435, 20, 150, 100) // set red goal position and size
+const Goal2 = new goal(930, 20, 150, 100) // set blue goal position and size
 
 // Create two player objects
-const player1 = new Player(500, 600, 40, 40);
-player1.image.src = "rot_stehend.png";
-const player2 = new Player(990, 600, 40, 40);
-player2.image.src = "blau_stehend.png";
+const player1 = new Player(500, 600, 40, 40); // set red player position and size
+player1.image.src = "rot_stehend.png"; // set character sprite
+const player2 = new Player(990, 600, 40, 40); // set blue player position and size
+player2.image.src = "blau_stehend.png"; // set character sprite
 
 
 // Key handling
@@ -596,7 +597,7 @@ function updatePlayers() {
     if (keys['ArrowUp'] && player2.touchGrass) {player2.accelerate(0, -acceleration*30);}
 }
 
-//check if player has entered goal function
+// check if player has entered goal
 function checkGoal(player: Player, goal: goal): boolean {
     
     if (player.x >= goal.goalx &&
@@ -614,13 +615,13 @@ function displayMessage(message: string) {
 }
 
 
-// Game loop
-drawPlatforms(createPlatforms());
-let imgData: ImageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+
+drawPlatforms(createPlatforms()); // draw platforms
+let imgData: ImageData = ctx.getImageData(0, 0, canvas.width, canvas.height); // take screenshot of platforms
 
 function clear() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.putImageData(imgData, 0, 0);
+    ctx.clearRect(0, 0, canvas.width, canvas.height); // clear canvas
+    ctx.putImageData(imgData, 0, 0); // insert platform screenshot
 }
 
 function update() {
@@ -649,10 +650,10 @@ function gameLoop(elepsTime: number) {
     draw();
     if (checkGoal(player1, Goal1)) {
         displayMessage("Player 1 Win!");
-        return;
+        return; // leave game loop
     } else if (checkGoal(player2, Goal2)) {
         displayMessage("Player 2 Win!");
-        return;
+        return; // leave game loop
     }
     updateTimer();
     requestAnimationFrame(gameLoop);
