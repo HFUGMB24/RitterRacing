@@ -415,6 +415,7 @@ class Player {
         this.touchCeiling = false;
         this.touchLeftWall = false;
         this.touchRightWall = false;
+        console.log(this.touchCeiling)
 
         let FeetCollisionPoints = [
             { x: this.x + this.width * 0.1, y: this.y + this.height * 0.8}, // Top-left
@@ -433,10 +434,10 @@ class Player {
         }
 
         let HeadCollisionPoints = [
-            { x: this.x + this.width * 0.3, y: this.y}, // Top-left
-            { x: this.x + this.width * 0.7, y: this.y}, // Top-right
-            { x: this.x + this.width * 0.3, y: this.y + this.height * 0.5}, // Bottom-left
-            { x: this.x + this.width * 0.7, y: this.y + this.height * 0.5} // Bottom-right
+            { x: this.x + this.width * 0.4, y: this.y}, // Top-left
+            { x: this.x + this.width * 0.6, y: this.y}, // Top-right
+            { x: this.x + this.width * 0.4, y: this.y + this.height * 0.5}, // Bottom-left
+            { x: this.x + this.width * 0.6, y: this.y + this.height * 0.5} // Bottom-right
         ];
 
         for (let platform of PlatformArray) {
@@ -480,16 +481,11 @@ class Player {
     }
 
     accelerate(accX: number, accY: number) {
-        if (this.touchCeiling) {
-            //accY = 0;
-            this.dirY = this.dirY+1;
-            console.log("mimimi");            
-        } else if (this.touchLeftWall) {
-
-            this.dirX = this.dirX+1;
+        if (this.touchLeftWall) {
+            this.x = this.x+5;
+            //this.dirX = this.dirX+1;
         } else if (this.touchRightWall) {
-              this.dirX = this.dirX-1;
-
+            this.dirX = this.dirX-1;
         } else {
             this.dirX += accX;
             this.dirY += accY;
@@ -498,6 +494,9 @@ class Player {
 
     applyGravity() {
         if (this.touchGrass) {return;} // if (floor) {leave function}
+        if (this.touchCeiling) {
+            this.dirY = this.dirY*-0.1;         
+        }
         const gravity = 0.2; // Adjust as needed
         this.GravitationalVelocity += gravity; // Update vertical velocity
         this.y += this.GravitationalVelocity; // Update character position
@@ -529,9 +528,9 @@ const Goal1 = new goal(435, 20, 150, 100)
 const Goal2 = new goal(930, 20, 150, 100)
 
 // Create two player objects
-const player1 = new Player(500, 600, 50, 50);
+const player1 = new Player(500, 600, 40, 40);
 player1.image.src = "rot_stehend.png";
-const player2 = new Player(990, 600, 50, 50);
+const player2 = new Player(990, 600, 40, 40);
 player2.image.src = "blau_stehend.png";
 
 
