@@ -2,6 +2,22 @@
 let canvas: HTMLCanvasElement = document.querySelector("canvas")!;
 let ctx: CanvasRenderingContext2D = canvas.getContext('2d')!;
 
+let countdown = 3;
+
+function updateTimer() {
+  const timerElement = document.getElementById("timer");
+  timerElement!.innerHTML = countdown.toString();
+  
+  if (countdown === 0) {
+    clearInterval(timerInterval);
+    timerElement!.innerHTML = "Start!";
+  } else {
+    countdown--;
+  }
+}
+
+const timerInterval = setInterval(updateTimer, 1000);
+
 interface Platform {
     posX: number,
     posY: number,
@@ -622,7 +638,12 @@ function draw() {
     Goal2.draw();
 }
 
-function gameLoop() {
+let loopTime: number;
+let oldTime: number;
+
+function gameLoop(elepsTime: number) {
+    loopTime = elepsTime - oldTime;
+    oldTime = elepsTime;
     clear();
     update();
     draw();
@@ -633,8 +654,9 @@ function gameLoop() {
         displayMessage("Player 2 Win!");
         return;
     }
+    updateTimer();
     requestAnimationFrame(gameLoop);
 }
 
 // Start the game loop
-gameLoop();
+requestAnimationFrame(gameLoop)

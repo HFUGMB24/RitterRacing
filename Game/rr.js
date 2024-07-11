@@ -2,6 +2,19 @@
 // Get the canvas element and context
 let canvas = document.querySelector("canvas");
 let ctx = canvas.getContext('2d');
+let countdown = 3;
+function updateTimer() {
+    const timerElement = document.getElementById("timer");
+    timerElement.innerHTML = countdown.toString();
+    if (countdown === 0) {
+        clearInterval(timerInterval);
+        timerElement.innerHTML = "Start!";
+    }
+    else {
+        countdown--;
+    }
+}
+const timerInterval = setInterval(updateTimer, 1000);
 let PlatformArray = [];
 function createPlatforms() {
     let Platforms = [];
@@ -559,7 +572,11 @@ function draw() {
     Goal1.draw();
     Goal2.draw();
 }
-function gameLoop() {
+let loopTime;
+let oldTime;
+function gameLoop(elepsTime) {
+    loopTime = elepsTime - oldTime;
+    oldTime = elepsTime;
     clear();
     update();
     draw();
@@ -571,7 +588,8 @@ function gameLoop() {
         displayMessage("Player 2 Win!");
         return;
     }
+    updateTimer();
     requestAnimationFrame(gameLoop);
 }
 // Start the game loop
-gameLoop();
+requestAnimationFrame(gameLoop);
