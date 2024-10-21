@@ -534,10 +534,9 @@ class goal {
         this.goalheight = goalheight;
     }
 
-    draw() {
+draw() {
         ctx.fillStyle = '#00000000';
         ctx.fillRect(this.goalx, this.goaly, this.goalwidth, this.goalheight);
-    }
 }
 
 // Create two goal objects
